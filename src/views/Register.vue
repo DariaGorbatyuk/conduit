@@ -5,7 +5,7 @@
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Sign up</h1>
           <p class="text-xs-center">
-            <router-link to="{name: 'login}">Need an account?</router-link>
+            <router-link to="{name: 'login}">Have an account?</router-link>
           </p>
           VALIDATION ERRORS
           <form action="" @submit.prevent="onSubmit">
@@ -18,7 +18,7 @@
             <fieldset class="form-group">
               <input type="password" class="form-control form-control-lg" placeholder="Password">
             </fieldset>
-            <button type="submit" class="btn btn-lg btn-primary pull-xs-right">Sign up</button>
+            <button type="submit" class="btn btn-lg btn-primary pull-xs-right" :disabled="isSubmitting">Sign up</button>
           </form>
         </div>
       </div>
@@ -26,17 +26,18 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "McvRegister",
-  setup() {
-    const onSubmit = () => {
+<script setup>
+import { computed } from "vue";
+import { useStore } from "vuex";
 
-    }
-    return {
-      onSubmit
-    }
-  }
+const store = useStore();
+const isSubmitting = computed(() => {
+  return store.state.auth.isSubmitting;
+});
+
+function onSubmit() {
+  console.log("submitting");
+  store.dispatch("register", {});
 }
 </script>
 
