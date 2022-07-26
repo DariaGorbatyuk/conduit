@@ -7,7 +7,7 @@
           <p class="text-xs-center">
             <router-link to="{name: 'login}">Have an account?</router-link>
           </p>
-          VALIDATION ERRORS
+          <mcv-validation-errors v-if="validationErrors" :validation-errors="validationErrors"></mcv-validation-errors>
           <form action="" @submit.prevent="onSubmit">
             <fieldset class="form-group">
               <input v-model.trim="user.name" type="text" class="form-control form-control-lg" placeholder="Username">
@@ -31,7 +31,7 @@
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router/dist/vue-router";
-
+import McvValidationErrors from "@/components/ValidationErrors"
 const store = useStore();
 const router = useRouter()
 const user = reactive({
@@ -39,12 +39,10 @@ const user = reactive({
   email: '',
   password: ''
 });
-const isSubmitting = computed(() => {
-  return store.state.auth.isSubmitting;
-});
 
+const isSubmitting = computed(() => store.state.auth.isSubmitting);
+const validationErrors = computed(()=>store.state.auth.validationErrors)
 function onSubmit() {
-  console.log("submitting");
   store.dispatch("register",
     {
       email: user.email,
