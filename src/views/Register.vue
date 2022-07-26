@@ -10,13 +10,14 @@
           VALIDATION ERRORS
           <form action="" @submit.prevent="onSubmit">
             <fieldset class="form-group">
-              <input type="text" class="form-control form-control-lg" placeholder="Username">
+              <input v-model.trim="user.name" type="text" class="form-control form-control-lg" placeholder="Username">
             </fieldset>
             <fieldset class="form-group">
-              <input type="email" class="form-control form-control-lg" placeholder="Email">
+              <input v-model="user.email" type="email" class="form-control form-control-lg" placeholder="Email">
             </fieldset>
             <fieldset class="form-group">
-              <input type="password" class="form-control form-control-lg" placeholder="Password">
+              <input v-model="user.password" type="password" class="form-control form-control-lg"
+                     placeholder="Password">
             </fieldset>
             <button type="submit" class="btn btn-lg btn-primary pull-xs-right" :disabled="isSubmitting">Sign up</button>
           </form>
@@ -27,20 +28,32 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, reactive } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router/dist/vue-router";
 
 const store = useStore();
+const router = useRouter()
+const user = reactive({
+  name: '',
+  email: '',
+  password: ''
+});
 const isSubmitting = computed(() => {
   return store.state.auth.isSubmitting;
 });
 
 function onSubmit() {
   console.log("submitting");
-  store.dispatch("register", {email: 'sdfdsfdsfg@fgh.com', username: 'qwsdfdfdfgdfgdfgerty', password: '123456'})
-    .then(user=>{
-    console.log('user', user)
-  })
+  store.dispatch("register",
+    {
+      email: user.email,
+      username: user.name,
+      password: user.password
+    })
+    .then(() => {
+     router.push({name: 'home'})
+    });
 }
 </script>
 
