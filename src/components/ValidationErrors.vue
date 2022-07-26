@@ -1,6 +1,6 @@
 <template>
   <ul class="error-messages">
-    <li v-for="errorKey in errorsItem" :key="errorKey">{{ errorKey }} {{ props.validationErrors[errorKey].join() }}</li>
+    <li v-for="errorMessage in errorMessages" :key="errorMessage">{{errorMessage}}</li>
   </ul>
 </template>
 
@@ -11,13 +11,19 @@ const props = defineProps({
   validationErrors: {
     type: Object,
     required: true,
-    default: {}
   }
 });
-const errorsItem = computed(() => Object.keys(props.validationErrors));
+ const errorMessages = computed(()=>{
+   return Object.keys(props.validationErrors).map(key=>{
+     const messages = props.validationErrors[key].join()
+     return key + messages
+   })
+ })
 
 </script>
 
 <style scoped>
-
+li{
+  text-align: left;
+}
 </style>
