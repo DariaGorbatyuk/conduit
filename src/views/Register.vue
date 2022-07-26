@@ -37,7 +37,10 @@ const isSubmitting = computed(() => {
 
 function onSubmit() {
   console.log("submitting");
-  store.dispatch("register", {});
+  store.dispatch("register", {email: 'sdfdsfdsfg@fgh.com', username: 'qwsdfdfdfgdfgdfgerty', password: '123456'})
+    .then(user=>{
+    console.log('user', user)
+  })
 }
 </script>
 
