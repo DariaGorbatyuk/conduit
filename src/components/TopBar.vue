@@ -22,7 +22,7 @@
             </router-link>
           </li>
         </template>
-        <template v-if="!isLoggedIn">
+        <template v-if="isAnonymous">
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'login'}">Sign in</router-link>
           </li>
@@ -39,10 +39,12 @@
 <script setup>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import {getterTypes} from "@/store/modules/auth";
 
 const store = useStore();
-const isLoggedIn = computed(() => store.state.auth.isLoggedIn);
-const currentUser = computed(() => store.state.auth.currentUser);
+const isLoggedIn = computed(() => store.getters[getterTypes.isLoggedIn]);
+const isAnonymous = computed(() => store.getters[getterTypes.isAnonymous]);
+const currentUser = computed(() => store.getters[getterTypes.currentUser]);
 </script>
 
 <style scoped>
