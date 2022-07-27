@@ -7,12 +7,16 @@ export const mutationTypes = {
   registerFailure: "[auth] registerFailure",
   loginStart: "[auth] loginStart",
   loginSuccess: "[auth] loginSuccess",
-  loginFailure: "[auth] loginFailure"
+  loginFailure: "[auth] loginFailure",
+  getCurrentUserStart: "[auth] getCurrentUserStart",
+  getCurrentUserSuccess: "[auth] getCurrentUserSuccess",
+  getCurrentUserFailure: "[auth] getCurrentUserFailure"
 };
 
 export const actionTypes = {
   register: "[auth] register",
-  login: "[auth] login"
+  login: "[auth] login",
+  getCurrentUser: "[auth] getCurrentUser"
 };
 export const getterTypes = {
   currentUser: "[auth] currentUser",
@@ -24,7 +28,8 @@ export default {
     isSubmitting: false,
     currentUser: null,
     validationErrors: null,
-    isLoggedIn: null
+    isLoggedIn: null,
+    isLoading: false
   },
   getters: {
     [getterTypes.currentUser]: (state) => state.currentUser,
@@ -58,7 +63,21 @@ export default {
     [mutationTypes.loginFailure](state, payload) {
       state.isSubmitting = false;
       state.validationErrors = payload;
+    },
+    [mutationTypes.getCurrentUserStart](state) {
+      state.isLoading = true;
+    },
+    [mutationTypes.getCurrentUserSuccess](state, payload) {
+      state.isLoading = false;
+      state.currentUser = payload;
+      state.isLoggedIn = true;
+    },
+    [mutationTypes.getCurrentUserFailure](state) {
+      state.isLoading = false;
+      state.isLoggedIn = false;
+      state.currentUser = null;
     }
+
   },
   actions: {
     [actionTypes.register]({ commit }, credentials) {
@@ -85,6 +104,18 @@ export default {
           }
         ).catch((error) => {
           commit(mutationTypes.loginFailure, error.response.data.errors);
+        });
+      });
+    },
+    [actionTypes.getCurrentUser]({ commit }) {
+      return new Promise((resolve) => {
+        commit(mutationTypes.getCurrentUserStart);
+        authApi.getCurrentUser().then((response) => {
+            commit(mutationTypes.getCurrentUserSuccess, response.data.user);
+            resolve(response.data.user);
+          }
+        ).catch(() => {
+          commit(mutationTypes.getCurrentUserFailure);
         });
       });
     }
