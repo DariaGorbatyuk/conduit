@@ -29,7 +29,7 @@ import McvValidationErrors from "@/components/ValidationErrors";
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router/dist/vue-router";
-import { actionTypes } from "@/store/modules/login";
+import { actionTypes } from "@/store/modules/auth";
 
 const store = useStore();
 const router = useRouter();
@@ -38,8 +38,8 @@ const user = reactive({
   password: ""
 });
 
-const validationErrors = computed(() => store.state.login.validationErrors);
-const isSubmitting = computed(() => store.state.login.isSubmitting);
+const validationErrors = computed(() => store.state.auth.validationErrors);
+const isSubmitting = computed(() => store.state.auth.isSubmitting);
 
 function onSubmit() {
   store.dispatch(actionTypes.login, {
@@ -52,6 +52,3 @@ function onSubmit() {
 }
 </script>
 
-<style scoped>
-
-</style>

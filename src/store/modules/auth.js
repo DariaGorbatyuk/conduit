@@ -3,11 +3,15 @@ import {setItem, getItem} from "@/helpers/storage";
 export const mutationTypes = {
   registerStart: '[auth] registerStart',
   registerSuccess: '[auth] registerSuccess',
-  registerFailure: '[auth] registerFailure'
+  registerFailure: '[auth] registerFailure',
+  loginStart: "[auth] loginStart",
+  loginSuccess: "[auth] loginSuccess",
+  loginFailure: "[auth] loginFailure"
 }
 
 export const actionTypes = {
-  register: '[auth] register'
+  register: '[auth] register',
+  login: "[auth] login"
 }
 export default {
   state: {
@@ -29,6 +33,19 @@ export default {
     [mutationTypes.registerFailure](state, payload) {
       state.isSubmitting = false;
       state.validationErrors = payload
+    },
+    [mutationTypes.loginStart](state) {
+      state.isSubmitting = true;
+      state.validationErrors = null;
+    },
+    [mutationTypes.loginSuccess](state, payload) {
+      state.isSubmitting = false;
+      state.currentUser = payload;
+      state.isLoggedIn = true;
+    },
+    [mutationTypes.loginFailure](state, payload) {
+      state.isSubmitting = false;
+      state.validationErrors = payload;
     }
   },
   actions: {
@@ -43,6 +60,19 @@ export default {
         }).catch((error) => {
           console.log("error", error);
           commit(mutationTypes.registerFailure, error.response.data.errors)
+        });
+      });
+    },
+    [actionTypes.login]({ commit }, payload) {
+      return new Promise((resolve) => {
+        commit(mutationTypes.loginStart);
+        authApi.login(payload).then((response) => {
+            commit(mutationTypes.loginSuccess, response.data.user)
+            setItem("accessToken", response.data.user.token);
+            resolve(response.data.user);
+          }
+        ).catch((error) => {
+          commit(mutationTypes.loginFailure, error.response.data.errors);
         });
       });
     }
