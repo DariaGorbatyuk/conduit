@@ -32,6 +32,8 @@ import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router/dist/vue-router";
 import McvValidationErrors from "@/components/ValidationErrors"
+import {actionTypes} from "@/store/modules/auth";
+
 const store = useStore();
 const router = useRouter()
 const user = reactive({
@@ -43,7 +45,7 @@ const user = reactive({
 const isSubmitting = computed(() => store.state.auth.isSubmitting);
 const validationErrors = computed(()=>store.state.auth.validationErrors)
 function onSubmit() {
-  store.dispatch("register",
+  store.dispatch(actionTypes.register,
     {
       email: user.email,
       username: user.name,

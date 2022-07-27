@@ -16,7 +16,7 @@ const props = defineProps({
  const errorMessages = computed(()=>{
    return Object.keys(props.validationErrors).map(key=>{
      const messages = props.validationErrors[key].join()
-     return key + messages
+     return key +' '+ messages
    })
  })
 
