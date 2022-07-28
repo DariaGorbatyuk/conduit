@@ -23,40 +23,47 @@
         </router-link>
       </div>
 
-
+      <mcv-pagination :total="feed.articlesCount"
+                      :limit="LIMIT"
+                      :current-page="currentPage"
+                      :url="baseUrl"
+      ></mcv-pagination>
     </div>
-    <mcv-pagination :total="pagination.total"
-                    :limit="pagination.limit"
-                    :current-page="pagination.currentPage"
-                    :url="pagination.url"
-    ></mcv-pagination>
+
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import { actionTypes } from "@/store/modules/feed";
 import McvPagination from "@/components/Pagination"
+import {LIMIT} from "@/helpers/vars"
+import { useRoute } from "vue-router/dist/vue-router";
 const store = useStore();
+const route = useRoute()
 const props = defineProps({
   apiUrl: {
     type: String,
     required: true
   }
 });
-const pagination = {
-  total: 500,
-  limit: 10,
-  currentPage: 5,
-  url: '/tags/dragons'
-}
+
+const baseUrl = computed(()=>route.path)
+const currentPage = computed(()=>+route.query.page || 1)
 const feed = computed(() => store.state.feed.data);
 const isLoading = computed(() => store.state.feed.isLoading);
 const errors = computed(() => store.state.feed.errors);
+
 onMounted(() => {
-  store.dispatch(actionTypes.getFeed, { apiUrl: props.apiUrl });
+  getFeed()
 });
+function getFeed(){
+  store.dispatch(actionTypes.getFeed, { apiUrl: props.apiUrl });
+}
+watch(currentPage, ()=>{
+  getFeed()
+})
 </script>
 
 <style scoped>
