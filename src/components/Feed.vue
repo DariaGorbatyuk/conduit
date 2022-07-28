@@ -25,7 +25,11 @@
 
 
     </div>
-    PAGINATION
+    <mcv-pagination :total="pagination.total"
+                    :limit="pagination.limit"
+                    :current-page="pagination.currentPage"
+                    :url="pagination.url"
+    ></mcv-pagination>
   </div>
 </template>
 
@@ -33,7 +37,7 @@
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { actionTypes } from "@/store/modules/feed";
-
+import McvPagination from "@/components/Pagination"
 const store = useStore();
 const props = defineProps({
   apiUrl: {
@@ -41,6 +45,12 @@ const props = defineProps({
     required: true
   }
 });
+const pagination = {
+  total: 500,
+  limit: 10,
+  currentPage: 5,
+  url: '/tags/dragons'
+}
 const feed = computed(() => store.state.feed.data);
 const isLoading = computed(() => store.state.feed.isLoading);
 const errors = computed(() => store.state.feed.errors);
