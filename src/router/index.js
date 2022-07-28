@@ -18,18 +18,41 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ "../views/Login")
   },
   {
-    path: "/createArticle",
-    name: "createArticle",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
-  },
-  {
     path: "/settings",
     name: "settings",
     component: () => import(/* webpackChunkName: "login" */ "../views/Login")
   },
   {
-    path: "/userProfile",
+    path: "/profiles/:slug",
     name: "userProfile",
+    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+  },
+  {
+    path: "/profiles/:slug/favorites",
+    name: "userProfileFavorites",
+    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+  },
+  {
+    path: "/article/:slug",
+    name: "article",
+    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+  }, {
+    path: "/feed",
+    name: "yourFeed",
+    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+  }, {
+    path: "/tags/:slug",
+    name: "tag",
+    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+  },
+  {
+    path: "/article/new",
+    name: "article",
+    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+  },
+  {
+    path: "/article/:slug/edit",
+    name: "editArticle",
     component: () => import(/* webpackChunkName: "login" */ "../views/Login")
   }
 ];
@@ -37,7 +60,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  linkActiveClass: 'active'
+  linkActiveClass: "active"
 });
 
 export default router;
