@@ -7,7 +7,7 @@
           <mcv-feed :api-url="apiUrl"></mcv-feed>
         </div>
         <div class="col-md-3">
-          POPULAR TAG
+          <mcv-popular-tags></mcv-popular-tags>
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
 
 <script setup>
 import McvFeed from "@/components/Feed";
-
+import McvPopularTags from "@/components/PopularTags"
 const apiUrl = "/articles";
 </script>
 

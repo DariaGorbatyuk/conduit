@@ -62,7 +62,6 @@ onMounted(() => {
 });
 
 function getFeed() {
-  console.log(offset)
   const parsedUrl = parseUrl(props.apiUrl);
   const params = stringify({
     limit: LIMIT,
