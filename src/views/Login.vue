@@ -46,7 +46,7 @@ function onSubmit() {
     email: user.email,
     password: user.password
   }).then(()=>{
-    router.push({name: 'home'})
+    router.push({name: 'globalFeed'})
     console.log('user', user)
   })
 }

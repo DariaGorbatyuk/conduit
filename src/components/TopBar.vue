@@ -1,14 +1,14 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <router-link :to="{name: 'home'}">MediumClone</router-link>
+      <router-link :to="{name: 'globalFeed'}">MediumClone</router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <router-link class="nav-link" :to="{name: 'home'}">Home</router-link>
+          <router-link class="nav-link" :to="{name: 'globalFeed'}">Home</router-link>
         </li>
         <template v-if="isLoggedIn">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'createArticle'}"><i class="ion-compose"></i>&nbsp;New Article
+            <router-link class="nav-link" :to="{name: 'article'}"><i class="ion-compose"></i>&nbsp;New Article
             </router-link>
           </li>
           <li class="nav-item">
