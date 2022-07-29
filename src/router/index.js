@@ -39,7 +39,7 @@ const routes = [
   }, {
     path: "/feed",
     name: "yourFeed",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "login" */ "../views/YourFeed")
   }, {
     path: "/tags/:slug",
     name: "tag",
