@@ -1,7 +1,7 @@
 <template>
   <div>
-    <mcv-loading  v-if="isLoading"></mcv-loading>
-    <div v-if="errors">{{ errors }}</div>
+    <mcv-loading v-if="isLoading"></mcv-loading>
+    <mcv-error-message v-if="errors"></mcv-error-message>
     <div v-if="feed">
       <div class="article-preview" v-for="(article, idx) in feed.articles" :key="idx">
         <div class="article-meta">
@@ -41,7 +41,9 @@ import McvPagination from "@/components/Pagination";
 import { LIMIT } from "@/helpers/vars";
 import { useRoute } from "vue-router/dist/vue-router";
 import { stringify, parseUrl } from "query-string";
-import McvLoading from "@/components/Loading"
+import McvLoading from "@/components/Loading";
+import McvErrorMessage from "@/components/ErrorMessage";
+
 const store = useStore();
 const route = useRoute();
 const props = defineProps({
