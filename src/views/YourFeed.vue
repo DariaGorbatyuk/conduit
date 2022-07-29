@@ -21,7 +21,7 @@ import McvFeed from "@/components/Feed";
 import McvPopularTags from "@/components/PopularTags"
 import McvBanner from "@/components/Banner"
 import McvFeedToggler from "@/components/FeedToggler"
-const apiUrl = "/articles";
+const apiUrl = "/articles/feed";
 </script>
 
 <style scoped>
