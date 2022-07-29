@@ -37,11 +37,13 @@
 import { computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import { actionTypes } from "@/store/modules/feed";
-import McvPagination from "@/components/Pagination"
-import {LIMIT} from "@/helpers/vars"
+import McvPagination from "@/components/Pagination";
+import { LIMIT } from "@/helpers/vars";
 import { useRoute } from "vue-router/dist/vue-router";
+import { stringify, parseUrl } from "query-string";
+
 const store = useStore();
-const route = useRoute()
+const route = useRoute();
 const props = defineProps({
   apiUrl: {
     type: String,
@@ -49,21 +51,31 @@ const props = defineProps({
   }
 });
 
-const baseUrl = computed(()=>route.path)
-const currentPage = computed(()=>+route.query.page || 1)
+const baseUrl = computed(() => route.path);
+const currentPage = computed(() => +route.query.page || 1);
 const feed = computed(() => store.state.feed.data);
 const isLoading = computed(() => store.state.feed.isLoading);
 const errors = computed(() => store.state.feed.errors);
-
+const offset = computed(() => currentPage.value * LIMIT - LIMIT);
 onMounted(() => {
-  getFeed()
+  getFeed();
 });
-function getFeed(){
-  store.dispatch(actionTypes.getFeed, { apiUrl: props.apiUrl });
+
+function getFeed() {
+  console.log(offset)
+  const parsedUrl = parseUrl(props.apiUrl);
+  const params = stringify({
+    limit: LIMIT,
+    offset: offset.value,
+    ...parsedUrl.query
+  });
+  const apiUrlWithParams = `${parsedUrl.url}?${params}`;
+  store.dispatch(actionTypes.getFeed, { apiUrl: apiUrlWithParams });
 }
-watch(currentPage, ()=>{
-  getFeed()
-})
+
+watch(currentPage, () => {
+  getFeed();
+});
 </script>
 
 <style scoped>
