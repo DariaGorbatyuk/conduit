@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    BANNER
+    <mcv-banner></mcv-banner>
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
@@ -18,6 +18,7 @@
 <script setup>
 import McvFeed from "@/components/Feed";
 import McvPopularTags from "@/components/PopularTags"
+import McvBanner from "@/components/Banner"
 const apiUrl = "/articles";
 </script>
 

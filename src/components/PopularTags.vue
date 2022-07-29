@@ -7,9 +7,7 @@
       </router-link>
     </div>
 
-    <div class="ng-hide" v-if="isLoading">
-      Loading tags...
-    </div>
+    <mcv-loading  v-if="isLoading"></mcv-loading>
 
     <div class="post-preview ng-hide" v-if="!isLoading && !tags">
       No tags are here... yet.
@@ -22,7 +20,7 @@
 import { computed, onMounted } from "vue";
 import { actionTypes } from "@/store/modules/popularTags";
 import { useStore } from "vuex";
-
+import McvLoading from "@/components/Loading"
 const store = useStore();
 
 const tags = computed(() => store.state.popularTags.data);
