@@ -43,7 +43,7 @@ const routes = [
   }, {
     path: "/tags/:slug",
     name: "tag",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "login" */ "../views/TagFeed")
   },
   {
     path: "/article/new",
