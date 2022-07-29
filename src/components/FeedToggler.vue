@@ -8,7 +8,9 @@
       <router-link :to="{name: 'globalFeed'}" class="nav-link">Global feed</router-link>
     </li>
     <li class="nav-item" v-if="tagName">
-      <router-link :to="{name: 'tag'}" class="nav-link">{{tagName}}</router-link>
+      <router-link :to="{name: 'tag'}" class="nav-link">
+        <i class="ion-pound"></i>
+        {{tagName}}</router-link>
     </li>
   </ul>
 </div>
