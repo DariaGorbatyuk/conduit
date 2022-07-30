@@ -35,7 +35,7 @@ const routes = [
   {
     path: "/article/:slug",
     name: "article",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "article" */ "../views/Article")
   }, {
     path: "/feed",
     name: "yourFeed",
@@ -45,11 +45,11 @@ const routes = [
     name: "tag",
     component: () => import(/* webpackChunkName: "login" */ "../views/TagFeed")
   },
-  {
-    path: "/article/new",
-    name: "article",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
-  },
+  // {
+  //   path: "/article/new",
+  //   name: "article",
+  //   component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+  // },
   {
     path: "/article/:slug/edit",
     name: "editArticle",
