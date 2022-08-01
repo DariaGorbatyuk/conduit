@@ -8,7 +8,7 @@
         </li>
         <template v-if="isLoggedIn">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'article'}"><i class="ion-compose"></i>&nbsp;New Article
+            <router-link class="nav-link" :to="{name: 'newArticle'}"><i class="ion-compose"></i>&nbsp;New Article
             </router-link>
           </li>
           <li class="nav-item">
