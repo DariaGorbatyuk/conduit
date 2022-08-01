@@ -19,7 +19,7 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Read more...</span>
-          TAG LIST
+          <mcv-tag-list :tags="article.tagList"></mcv-tag-list>
         </router-link>
       </div>
 
@@ -43,7 +43,7 @@ import { useRoute } from "vue-router/dist/vue-router";
 import { stringify, parseUrl } from "query-string";
 import McvLoading from "@/components/Loading";
 import McvErrorMessage from "@/components/ErrorMessage";
-
+import McvTagList from "@/components/TagList"
 const store = useStore();
 const route = useRoute();
 const props = defineProps({

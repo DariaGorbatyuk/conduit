@@ -38,7 +38,7 @@
           <div>
             <p>{{ article.body }}</p>
           </div>
-          TAGLIST
+          <mcv-tag-list :tags="article.tagList"></mcv-tag-list>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@ import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router/dist/vue-router";
 import McvLoading from "@/components/Loading";
 import McvErrorMessage from "@/components/ErrorMessage";
-
+import McvTagList from "@/components/TagList"
 const store = useStore();
 const route = useRoute();
 const router = useRouter()
