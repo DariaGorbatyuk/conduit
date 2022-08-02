@@ -61,10 +61,10 @@ const props = defineProps({
 });
 
 const formValues = reactive({
-  title: "",
-  description: "",
-  body: "",
-  tagList: ""
+  title: props.initialValues.title,
+  description: props.initialValues.description,
+  body: props.initialValues.body,
+  tagList: props.initialValues.tagList.join(' ')
 });
 const onSubmit = () => {
   emit("articleSubmit", { ...formValues, tagList: formValues.tagList.split(' ') });
