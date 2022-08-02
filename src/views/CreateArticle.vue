@@ -1,28 +1,33 @@
 <template>
-  <div>CreateArticle
     <mcv-article-form
       :initial-values="initialValues"
       :errors="validationErrors"
       :is-submitting="isSubmitting"
       @articleSubmit="onSubmit"
     ></mcv-article-form>
-  </div>
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import McvArticleForm from "@/components/ArticleForm"
+import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router/dist/vue-router";
+import {actionTypes} from "@/store/modules/createArticle";
+
+const store = useStore()
+const router = useRouter()
 const initialValues = reactive({
   title: '',
   description: '',
   body:'',
   tagList: []
 });
-const validationErrors = null;
-const isSubmitting = false;
+const validationErrors = computed(()=>store.state.createArticle.validationErrors);
+const isSubmitting = computed(()=>store.state.createArticle.isSubmitting);
 
-const onSubmit = (data) => {
-  console.log('submit create', data)
+const onSubmit = (articleInput) => {
+  store.dispatch(actionTypes.createArticle, {... articleInput })
+  .then((article)=>router.push({name: 'article', params:{slug: article.slug}}))
 };
 </script>
 

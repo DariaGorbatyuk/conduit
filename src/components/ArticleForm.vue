@@ -1,9 +1,9 @@
 <template>
   <div class="editor-page">
-    <div class="container-page">
+    <div class="container page">
       <div class="row">
         <div class="col-md-10 offset-md-1 col-xs-12">
-          <mcv-validation-errors v-if="errors"></mcv-validation-errors>
+          <mcv-validation-errors v-if="errors" :validation-errors="errors"></mcv-validation-errors>
           <form action="" @submit.prevent="onSubmit">
             <fieldset>
               <fieldset class="form-group">
@@ -67,7 +67,7 @@ const formValues = reactive({
   tagList: ""
 });
 const onSubmit = () => {
-  emit("articleSubmit", formValues);
+  emit("articleSubmit", { ...formValues, tagList: formValues.tagList.split(' ') });
 };
 </script>
 
