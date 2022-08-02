@@ -53,7 +53,7 @@ const routes = [
   {
     path: "/articles/:slug/edit",
     name: "editArticle",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "login" */ "../views/EditArticle")
   }
 ];
 
