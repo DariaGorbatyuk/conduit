@@ -6,6 +6,7 @@ import createArticle from "@/store/modules/createArticle"
 import editArticle from "@/store/modules/editArticle"
 import popularTags from "@/store/modules/popularTags"
 import settings from "@/store/modules/settings"
+import addToFav from "@/store/modules/addToFav";
 export default createStore({
   state: {},
   getters: {},
@@ -18,6 +19,7 @@ export default createStore({
     popularTags,
     createArticle,
     editArticle,
-    settings
+    settings,
+    addToFav
   },
 });

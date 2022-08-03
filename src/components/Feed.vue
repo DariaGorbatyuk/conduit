@@ -13,7 +13,12 @@
             </router-link>
             <span class="date">{{ article.createAt }}</span>
           </div>
-          <div class="pull-xs-right">ADD TO FAV</div>
+          <mcv-add-to-fav
+            class="pull-xs-right"
+            :is-favorite="article.favorited"
+            :article-slug="article.slug"
+            :favorites-count="article.favoritesCount"
+          ></mcv-add-to-fav>
         </div>
         <router-link class="preview-link" :to="{name: 'article', params: {slug: article.slug}}">
           <h1>{{ article.title }}</h1>
@@ -34,16 +39,19 @@
 </template>
 
 <script setup>
+
+import McvPagination from "@/components/Pagination";
+import McvLoading from "@/components/Loading";
+import McvAddToFav from "@/components/AddToFavorites";
+import McvErrorMessage from "@/components/ErrorMessage";
+import McvTagList from "@/components/TagList";
 import { computed, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import { actionTypes } from "@/store/modules/feed";
-import McvPagination from "@/components/Pagination";
 import { LIMIT } from "@/helpers/vars";
 import { useRoute } from "vue-router/dist/vue-router";
 import { stringify, parseUrl } from "query-string";
-import McvLoading from "@/components/Loading";
-import McvErrorMessage from "@/components/ErrorMessage";
-import McvTagList from "@/components/TagList"
+
 const store = useStore();
 const route = useRoute();
 const props = defineProps({
