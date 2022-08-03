@@ -2,6 +2,7 @@
   <div>
     <mcv-loading v-if="isLoading"></mcv-loading>
     <mcv-article-form
+      v-if="initialValues"
       :initial-values="initialValues"
       :errors="validationErrors"
       :is-submitting="isSubmitting"
@@ -11,7 +12,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watch } from "vue";
 import McvArticleForm from "@/components/ArticleForm";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router/dist/vue-router";
@@ -26,28 +27,23 @@ const isSubmitting = computed(() => store.state.editArticle.isSubmitting);
 const isLoading = computed(() => store.state.editArticle.isLoading);
 const article = computed(() => store.state.editArticle.article);
 const initialValues = computed(() => {
-  if (!article.value) {
+  if (!article.value) return null;
+  else {
     return {
-      title: "",
-      description: "",
-      body: "",
-      tagList: []
-    };
-  } else {
-    console.log("article", article);
-    return {
-      title: article.title,
-      description: article.description,
-      body: article.body,
-      tagList: article.tagList
+      title: article.value.title,
+      description: article.value.description,
+      body: article.value.body,
+      tagList: article.value.tagList
     };
   }
 });
+
 onMounted(() => {
-  store.dispatch(actionTypes.getArticle, route.params.slug);
+  store.dispatch(actionTypes.getArticle, { slug: route.params.slug });
 });
 const onSubmit = (articleInput) => {
   const slug = route.params.slug;
+  console.log("articleInput vue", articleInput);
   store.dispatch(actionTypes.updateArticle, { slug, articleInput })
     .then((article) => router.push({ name: "article", params: { slug: article.slug } }));
 };

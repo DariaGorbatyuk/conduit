@@ -37,17 +37,18 @@ const mutations = {
   },
   [mutationTypes.getArticleSuccess](state, payload) {
     state.isLoading = false
-    state.data = payload
+    state.article = payload
   },
   [mutationTypes.getArticleFailure](state) {
     state.isSubmitting = false;
   }
 };
 const actions = {
-  [actionTypes.updateArticle]({commit},  {slug, articleInputs} ) {
+  [actionTypes.updateArticle]({commit, state},  {slug, articleInput} ) {
     return new Promise((resolve) => {
       commit(mutationTypes.updateArticleStart)
-      articleApi.editArticle(slug, articleInputs)
+      console.log('articleInputs actions', articleInput)
+      articleApi.updateArticle(slug, articleInput)
         .then((article)=>{
           commit(mutationTypes.updateArticleSuccess, article)
           resolve(article)
@@ -61,10 +62,10 @@ const actions = {
       commit(mutationTypes.getArticleStart)
       articleApi.getArticle(slug)
         .then((article)=>{
-          commit(mutationTypes.updateArticleSuccess, article)
+          commit(mutationTypes.getArticleSuccess, article)
           resolve(article)
         }).catch(()=>{
-        commit(mutationTypes.updateArticleFailure)
+        commit(mutationTypes.getArticleFailure)
       })
     });
   }
