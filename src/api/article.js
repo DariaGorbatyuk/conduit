@@ -12,7 +12,6 @@ const createArticle = (articleInput) => {
     .then(response => response.data.article);
 };
 const updateArticle = (slug, articleInput) => {
-  console.log('articleInput', articleInput)
   return axios.put(`/articles/${slug}`, { article: articleInput })
     .then(response=>response.data.article)
 };

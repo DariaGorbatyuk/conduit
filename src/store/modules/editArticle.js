@@ -47,7 +47,6 @@ const actions = {
   [actionTypes.updateArticle]({commit, state},  {slug, articleInput} ) {
     return new Promise((resolve) => {
       commit(mutationTypes.updateArticleStart)
-      console.log('articleInputs actions', articleInput)
       articleApi.updateArticle(slug, articleInput)
         .then((article)=>{
           commit(mutationTypes.updateArticleSuccess, article)

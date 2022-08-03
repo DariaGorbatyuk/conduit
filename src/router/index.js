@@ -20,7 +20,7 @@ const routes = [
   {
     path: "/settings",
     name: "settings",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "login" */ "../views/Settings")
   },
   {
     path: "/profiles/:slug",

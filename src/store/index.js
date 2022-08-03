@@ -5,6 +5,7 @@ import article from "@/store/modules/articles"
 import createArticle from "@/store/modules/createArticle"
 import editArticle from "@/store/modules/editArticle"
 import popularTags from "@/store/modules/popularTags"
+import settings from "@/store/modules/settings"
 export default createStore({
   state: {},
   getters: {},
@@ -16,6 +17,7 @@ export default createStore({
     article,
     popularTags,
     createArticle,
-    editArticle
+    editArticle,
+    settings
   },
 });
