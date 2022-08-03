@@ -33,9 +33,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ "../views/Login")
   },
   {
-    path: "/article/:slug",
+    path: "/articles/:slug",
     name: "article",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "article" */ "../views/Article")
   }, {
     path: "/feed",
     name: "yourFeed",
@@ -46,14 +46,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ "../views/TagFeed")
   },
   {
-    path: "/article/new",
-    name: "article",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    path: "/articles/new",
+    name: "newArticle",
+    component: () => import(/* webpackChunkName: "login" */ "../views/CreateArticle")
   },
   {
-    path: "/article/:slug/edit",
+    path: "/articles/:slug/edit",
     name: "editArticle",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "login" */ "../views/EditArticle")
   }
 ];
 
