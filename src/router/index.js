@@ -20,17 +20,17 @@ const routes = [
   {
     path: "/settings",
     name: "settings",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "login" */ "../views/Settings")
   },
   {
     path: "/profiles/:slug",
     name: "userProfile",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "login" */ "../views/UserProfile")
   },
   {
     path: "/profiles/:slug/favorites",
     name: "userProfileFavorites",
-    component: () => import(/* webpackChunkName: "login" */ "../views/Login")
+    component: () => import(/* webpackChunkName: "login" */ "../views/UserProfile")
   },
   {
     path: "/articles/:slug",

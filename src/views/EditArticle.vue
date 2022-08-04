@@ -43,7 +43,6 @@ onMounted(() => {
 });
 const onSubmit = (articleInput) => {
   const slug = route.params.slug;
-  console.log("articleInput vue", articleInput);
   store.dispatch(actionTypes.updateArticle, { slug, articleInput })
     .then((article) => router.push({ name: "article", params: { slug: article.slug } }));
 };
