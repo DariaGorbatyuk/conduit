@@ -2,7 +2,7 @@
   <div>
     <mcv-loading v-if="isLoading"></mcv-loading>
     <mcv-error-message v-if="errors"></mcv-error-message>
-    <div v-if="feed">
+    <div v-if="feed && !isLoading">
       <div class="article-preview" v-for="(article, idx) in feed.articles" :key="idx">
         <div class="article-meta">
           <router-link :to="{name: 'userProfile', params: {slug: article.author.username}}">
@@ -81,8 +81,8 @@ function getFeed() {
   const apiUrlWithParams = `${parsedUrl.url}?${params}`;
   store.dispatch(actionTypes.getFeed, { apiUrl: apiUrlWithParams });
 }
-
-watch(currentPage, () => {
+const apiUrlFeed = computed(()=>props.apiUrl)
+watch([currentPage,apiUrlFeed], () => {
   getFeed();
 });
 </script>
